@@ -10,20 +10,17 @@
     margin-right: auto;
     text-align: center;
     background-color: rgb(87, 243, 235);
+    font-size: 50px;
 }
 
 
 
 .active {
     color: black;
-    font-size: 110px;
     font-weight: 700;
-    
-
 }
 
 .limit {
     color: red;
-    font-size: 110px;
     font-weight: 700;
 }

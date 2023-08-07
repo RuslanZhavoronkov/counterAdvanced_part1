@@ -1,0 +1,19 @@
+.textValue {
+color: rgb(87, 243, 235);
+}
+
+.input {
+    border-color: rgb(87, 243, 235);
+    border-radius: 2px;
+}
+
+
+.warning {
+    background-color: rgb(240, 72, 72);
+    border-color:rgb(240, 72, 72)
+}  
+
+.inputContainer {
+   
+    padding-right: 5px;
+}
