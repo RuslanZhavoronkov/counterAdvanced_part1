@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button } from './components/Button/Button';
-import { Counter } from './components/Couter/Couter';
-import s from './App.module.css'
-import { Input } from './components/Input/Input';
+import { MainNumberCounter } from './components/MainNumberCounter/MainNumberCounter';
+import { MainCounterCustomizer } from './components/MainCounterCustomizer/MainCounterCustomizer';
 
 
 export const firstMessage = "Enter values and press 'set'"
 export const warningMessage = 'Incorrect value!'
 
-  function App() {
+function App() {
 
 
   let [counter, setCounter] = useState<number>(0)
@@ -33,9 +31,9 @@ export const warningMessage = 'Incorrect value!'
 
   // write in state max value 
   const changeMaxValue = (value: number) => {
-    
+
     setMaxValue(value);
-    value > startValue && value >=0  ? setMessage(firstMessage) : setMessage(warningMessage)
+    value > startValue && value >= 0 ? setMessage(firstMessage) : setMessage(warningMessage)
   }
 
 
@@ -46,39 +44,36 @@ export const warningMessage = 'Incorrect value!'
   }
 
 
-
-
   // setting the minimum value
-
   const settingMinimumValue = () => {
     setMessage('')
     setCounter(startValue)
-
   }
-
 
   return (
     <div>
 
-      <div className={s.app}>
-        <Counter counter={message? message: counter} color={counter < maxValue ? 'black' : 'red'} />
-        <div className={s.buttonArea}>
-          <Button name={'INC'} callBack={increaseCounter} color={counter < maxValue ? 'aquamarine' : 'grey'} />
-          <Button name={'RESET'} callBack={resetCounter} color={counter > 0 ? 'aquamarine' : 'grey'} />
-        </div>
-      </div>
+      <MainNumberCounter
+        message={message}
+        counter={counter}
+        maxValue={maxValue}
+        increaseCounter={increaseCounter}
+        resetCounter={resetCounter} />
 
-      <div className={s.app}>
-        <Input name={'max value'} callBack={changeMaxValue} color={startValue === maxValue || maxValue < 0 ? 'red' : 'black'} />
-        <Input name={'min value'} callBack={changeStartValue} color={startValue === maxValue || startValue < 0 ? 'red' : 'black'} />
-        <div className={s.buttonArea}>
-          <Button name={'SET'} callBack={settingMinimumValue} color={counter === startValue ? 'grey' : 'aquamarine'} />
-        </div>
-      </div>
+      <MainCounterCustomizer
+        counter={counter}
+        startValue={startValue}
+        maxValue={maxValue}
+        changeStartValue={changeStartValue}
+        changeMaxValue={changeMaxValue}
+        settingMinimumValue={settingMinimumValue}
+      />
 
     </div>
   );
 }
 
 export default App;
+
+
 
