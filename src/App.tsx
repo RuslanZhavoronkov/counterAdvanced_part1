@@ -18,11 +18,11 @@ function App() {
 
 
 
+
   const increaseCounter = () => {
     if (counter < maxValue) {
       setCounter(counter + 1);
     }
-
   }
 
   const resetCounter = () => {
@@ -34,6 +34,7 @@ function App() {
 
     setMaxValue(value);
     value > startValue && value >= 0 ? setMessage(firstMessage) : setMessage(warningMessage)
+    setCounter(0)
   }
 
 
@@ -41,13 +42,21 @@ function App() {
   const changeStartValue = (value: number) => {
     setStartValue(value);
     value < maxValue && value >= 0 ? setMessage(firstMessage) : setMessage(warningMessage)
+    setCounter(0)
+
   }
 
 
   // setting the minimum value
   const settingMinimumValue = () => {
-    setMessage('')
-    setCounter(startValue)
+    
+    if (startValue < maxValue && startValue >= 0 && maxValue > 0) {
+      setMessage('')
+      setCounter(startValue)
+    } else {
+      setMessage('Incorrect value!')
+    }
+      
   }
 
   return (
@@ -56,6 +65,7 @@ function App() {
       <MainNumberCounter
         message={message}
         counter={counter}
+        startValue={startValue}
         maxValue={maxValue}
         increaseCounter={increaseCounter}
         resetCounter={resetCounter} />
@@ -67,6 +77,7 @@ function App() {
         changeStartValue={changeStartValue}
         changeMaxValue={changeMaxValue}
         settingMinimumValue={settingMinimumValue}
+        message={message}
       />
 
     </div>
