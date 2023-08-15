@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { MainNumberCounter } from './components/MainNumberCounter/MainNumberCounter';
@@ -10,13 +10,45 @@ export const warningMessage = 'Incorrect value!'
 
 function App() {
 
-
   let [counter, setCounter] = useState<number>(0)
   let [maxValue, setMaxValue] = useState<number>(0)
   let [startValue, setStartValue] = useState<number>(0)
   let [message, setMessage] = useState<string>('')
 
 
+  //get from localStorage and write to state
+  useEffect(() => {
+
+    let counterAsString = localStorage.getItem('counter')
+    let startValueAsString = localStorage.getItem('startValue')
+    let maxValueAsString = localStorage.getItem('maxValue')
+
+    if (counterAsString) {
+      let newCounter = JSON.parse(counterAsString)
+      setCounter(newCounter)
+    }
+
+    if (startValueAsString) {
+      let newStartValue = JSON.parse(startValueAsString)
+      setStartValue(newStartValue)
+    }
+
+    if (maxValueAsString) {
+      let newMaxValue = JSON.parse(maxValueAsString)
+      setMaxValue(newMaxValue)
+    }
+
+  }, [])
+
+  
+   
+  //writing values in localStorage
+  useEffect(()=> {
+    localStorage.setItem('counter', JSON.stringify(counter))
+    localStorage.setItem('startValue', JSON.stringify(startValue))
+    localStorage.setItem('maxValue', JSON.stringify(maxValue))
+
+  },[counter, startValue, maxValue])
 
 
   const increaseCounter = () => {
@@ -49,15 +81,16 @@ function App() {
 
   // setting the minimum value
   const settingMinimumValue = () => {
-    
+
     if (startValue < maxValue && startValue >= 0 && maxValue > 0) {
       setMessage('')
       setCounter(startValue)
     } else {
       setMessage('Incorrect value!')
     }
-      
+
   }
+
 
   return (
     <div>
@@ -88,3 +121,6 @@ export default App;
 
 
 
+// setMaxValue((val: number) => {
+//   localStorage.setItem('maxValue', JSON.stringify(val))
+//   return val
